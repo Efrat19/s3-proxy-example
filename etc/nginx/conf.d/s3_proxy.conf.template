@@ -27,7 +27,7 @@ server {
 
     location / {
         resolver $NAMESERVER ipv6=off;
-        proxy_pass https://${S3_BUCKET}.s3.amazonaws.com$uri$is_args$args;
+        proxy_pass http://${S3_BUCKET}$uri$is_args$args;
     }
 
 }

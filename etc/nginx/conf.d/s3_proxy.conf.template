@@ -44,8 +44,6 @@ server {
           return 204;
         }
 
-        proxy_set_header Referer $http_referer;
-        proxy_set_header Referrer-Policy 'unsafe-url';
         resolver $NAMESERVER ipv6=off;
         proxy_pass http://${S3_BUCKET}$uri$is_args$args;
     }

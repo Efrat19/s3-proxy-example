@@ -28,13 +28,13 @@ server {
     location / {
 
         # enable cors:
-        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Origin' $http_origin;
         add_header 'Access-Control-Allow-Credentials' 'true';
         add_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
         add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
     
         if ($request_method = 'OPTIONS') {
-          add_header 'Access-Control-Allow-Origin' '*';
+          add_header 'Access-Control-Allow-Origin' $http_origin;
           add_header 'Access-Control-Allow-Credentials' 'true';
           add_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
           add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
@@ -45,6 +45,7 @@ server {
         }
 
         resolver $NAMESERVER ipv6=off;
+        # return 200 'hi';
         proxy_pass http://${S3_BUCKET}$uri$is_args$args;
     }
 
